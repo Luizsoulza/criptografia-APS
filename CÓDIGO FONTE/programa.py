@@ -1,36 +1,41 @@
-#PROGRAMA
-
+#criptografia
 
 from criptografia import criptografar
 from descriptografia import descriptografar
 
 def menu():
+    # Loop pra mostrar o menu até o usuário escolher sair
     while True:
-        print("\n__ALGORITMO DE CRIPTOGRAFIA E DESCRIPTOGRAFIA__")
-        print("1. Criptografar")
-        print("2. Descriptografar")
-        print("3. Sair")
+        print("\n=== Criptografia e Descriptografia ===")
+        print("1 - Criptografar")
+        print("2 - Descriptografar")
+        print("3 - Sair")
+        
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
-            frase = input("Digite a frase para criptografar: ")
-            senha = input("Digite a chave: ")
-            resultado = criptografar(frase, senha)
+            senha = input("Chave: ")
+            mensagem = input("Mensagem para criptografar: ")
+            resultado = criptografar(mensagem, senha)
             print("Texto criptografado:", resultado)
 
         elif opcao == '2':
-            texto = input("Digite o texto criptografado: ")
-            senha = input("Digite a chave: ")
+            senha = input("Chave: ")
+            mensagem = input("Mensagem criptografada: ")
             try:
-                resultado = descriptografar(texto, senha)
-                print("Frase original:", resultado)
+                # Tenta descriptografar, mas pode dar erro se a senha estiver errada ou mensagem estiver faltando informação.
+                #Ou formatada errada
+                resultado = descriptografar(mensagem, senha)
+                print("Mensagem original:", resultado)
             except Exception as e:
-                print("Erro na descriptografia:", e)
+                # Se der erro, vai aparecer um alert e vai aparecer a opção para descriptografar novamente.
+                print("Aconteceu um erro na descriptografia, confira a chave e a mensagem.")
 
         elif opcao == '3':
-            print("Saindo...")
+            print("Programa encerrado...")
             break
+
         else:
-            print("Opção inválida.")
+            print("Opção inválida, tente novamente!")
 
 menu()
