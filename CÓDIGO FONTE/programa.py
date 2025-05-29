@@ -1,41 +1,33 @@
-#criptografia
-
-from criptografia import criptografar
-from descriptografia import descriptografar
+from caracteres import BASE_CARACTERES
+from criptografia import cifra_vigenere
+from descriptografia import decifra_vigenere
 
 def menu():
-    # Loop pra mostrar o menu até o usuário escolher sair
     while True:
-        print("\n=== Criptografia e Descriptografia ===")
-        print("1 - Criptografar")
-        print("2 - Descriptografar")
-        print("3 - Sair")
-        
+        print("\n====== Menu Principal ======")
+        print("1. Criptografar")
+        print("2. Descriptografar")
+        print("3. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
-            senha = input("Chave: ")
-            mensagem = input("Mensagem para criptografar: ")
-            resultado = criptografar(mensagem, senha)
-            print("Texto criptografado:", resultado)
+            texto = input("Digite o texto a ser criptografado: ")[:256]
+            chave = input("Digite a chave: ")
+            criptografado = cifra_vigenere(texto, chave, BASE_CARACTERES)
+            print("Texto criptografado:", criptografado)
 
         elif opcao == '2':
-            senha = input("Chave: ")
-            mensagem = input("Mensagem criptografada: ")
-            try:
-                # Tenta descriptografar, mas pode dar erro se a senha estiver errada ou mensagem estiver faltando informação.
-                #Ou formatada errada
-                resultado = descriptografar(mensagem, senha)
-                print("Mensagem original:", resultado)
-            except Exception as e:
-                # Se der erro, vai aparecer um alert e vai aparecer a opção para descriptografar novamente.
-                print("Aconteceu um erro na descriptografia, confira a chave e a mensagem.")
+            texto = input("Digite o texto criptografado: ")
+            chave = input("Digite a chave: ")
+            descriptografado = decifra_vigenere(texto, chave, BASE_CARACTERES)
+            print("Texto descriptografado:", descriptografado)
 
         elif opcao == '3':
-            print("Programa encerrado...")
+            print("Saindo do programa...")
             break
-
         else:
-            print("Opção inválida, tente novamente!")
+            print("Opção inválida. Tente novamente.")
 
-menu()
+# Inicia o programa
+if __name__ == "__main__":
+    menu()
