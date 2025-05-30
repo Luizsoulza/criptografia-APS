@@ -1,6 +1,8 @@
+# programa.py
 from caracteres import BASE_CARACTERES
 from criptografia import criptografar
 from descriptografia import descriptografar
+
 
 def menu():
     while True:
@@ -11,24 +13,39 @@ def menu():
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
-            texto = input("Digite o texto a ser criptografado: ")[:256]
+            texto = input("Digite o texto (máx. 256 caracteres): ")
             chave = input("Digite a chave: ")
-            criptografado = criptografar(texto, chave, BASE_CARACTERES)
-            print("\nTexto criptografado:")
-            print(criptografado)
+            if len(texto) > 256:
+                print("Erro: texto muito longo.")
+                continue
+            if not chave:
+                print("Erro: chave vazia.")
+                continue
+            try:
+                criptografado = criptografar(texto, chave)
+                print("\nTexto criptografado (hexadecimal):\n" + criptografado)
+            except Exception as e:
+                print("Erro na criptografia:", e)
 
         elif opcao == '2':
-            texto = input("Digite o texto criptografado: ")
+            texto = input("Digite o texto criptografado (hexadecimal): ")
             chave = input("Digite a chave: ")
-            descriptografado = descriptografar(texto, chave, BASE_CARACTERES)
-            print("\nTexto descriptografado:")
-            print(descriptografado)
+            if not chave:
+                print("Erro: chave vazia.")
+                continue
+            try:
+                original = descriptografar(texto, chave)
+                print("\nTexto descriptografado:\n" + original)
+            except Exception as e:
+                print("Erro na descriptografia:", e)
 
         elif opcao == '3':
-            print("Saindo do programa...")
+            print("Saindo...")
             break
+
         else:
-            print("Opção inválida. Tente novamente.")
+            print("Opção inválida.")
+
 
 if __name__ == "__main__":
     menu()

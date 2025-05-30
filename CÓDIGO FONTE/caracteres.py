@@ -1,28 +1,21 @@
+#caracteres.py
+
 # Dígitos
-digitos = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+digitos = list('0123456789')
 
 # Letras maiúsculas
-letras_maiusculas = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-]
+letras_maiusculas = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 # Letras minúsculas
-letras_minusculas = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-]
+letras_minusculas = list('abcdefghijklmnopqrstuvwxyz')
 
 # Pontuações e símbolos comuns
-pontuacoes = [
-    '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/',
-    ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'
-]
+pontuacoes = list('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
 
 # Espaço
 espacos = [' ']
 
-# Letras acentuadas
+# Letras acentuadas e especiais
 letras_acentuadas = [
     'á','à','â','ã','ä','é','è','ê','ë','í','ì','î','ï',
     'ó','ò','ô','õ','ö','ú','ù','û','ü','ç',
@@ -32,7 +25,6 @@ letras_acentuadas = [
 
 # Símbolos extras
 simbolos_extra = ['€','£','¥','¢','§','©','®','™','°','±','×','÷','µ','¶']
-
 
 # Junta todas as listas numa única lista chamada BASE_CARACTERES
 BASE_CARACTERES = (

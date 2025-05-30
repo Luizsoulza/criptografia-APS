@@ -1,33 +1,29 @@
-from caracteres import BASE_CARACTERES as base
+from caracteres import BASE_CARACTERES
 
-def decifra_vigenere(texto, chave_expandida, base):
+def decifra_vigenere(texto, chave, base):
+    chave_expandida = (chave * ((len(texto) // len(chave)) + 1))[:len(texto)]
     resultado = ''
-    for t, k in zip(texto, chave_expandida):
-        if t in base and k in base:
-            t_index = base.index(t)
-            k_index = base.index(k)
-            novo_index = (t_index - k_index) % len(base)
-            resultado += base[novo_index]
+    for char_texto, char_chave in zip(texto, chave_expandida):
+        if char_texto in base and char_chave in base:
+            indice_texto = base.index(char_texto)
+            indice_chave = base.index(char_chave)
+            novo_indice = (indice_texto - indice_chave) % len(base)
+            resultado += base[novo_indice]
         else:
-            resultado += t
+            resultado += char_texto
     return resultado
 
-def xor_indices_inversa(texto, chave_expandida, base):
-    # XOR inverso é o mesmo do direto
-    resultado = ''
-    for c, k in zip(texto, chave_expandida):
-        if c in base and k in base:
-            i_c = base.index(c)
-            i_k = base.index(k)
-            i_xor = i_c ^ i_k
-            i_xor = i_xor % len(base)
-            resultado += base[i_xor]
-        else:
-            resultado += c
-    return resultado
+def descriptografar(texto_hex, chave):
+    # Converte hexadecimal para texto
+    try:
+        texto_bytes = bytes.fromhex(texto_hex)
+        texto = texto_bytes.decode('utf-8')
+    except Exception as e:
+        raise ValueError("Erro ao converter hexadecimal para texto.") from e
 
-def descriptografar(texto_cifrado, chave, base):
-    chave_expandida = (chave * ((len(texto_cifrado) // len(chave)) + 1))[:len(texto_cifrado)]
-    texto_xor_desfeito = xor_indices_inversa(texto_cifrado, chave_expandida, base)
-    texto_original = decifra_vigenere(texto_xor_desfeito, chave_expandida, base)
-    return texto_original
+    # Aplica Vigenère 3 vezes (inverso)
+    etapa1 = decifra_vigenere(texto, chave, BASE_CARACTERES)
+    etapa2 = decifra_vigenere(etapa1, chave, BASE_CARACTERES)
+    etapa3 = decifra_vigenere(etapa2, chave, BASE_CARACTERES)
+
+    return etapa3
