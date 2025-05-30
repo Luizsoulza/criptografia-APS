@@ -15,7 +15,7 @@ def menu():
         if opcao == '1':
             texto = input("Digite o texto (máx. 256 caracteres): ")
             chave = input("Digite a chave: ")
-            if len(texto) > 256:
+            if len(texto) > 1000:
                 print("Erro: texto muito longo.")
                 continue
             if not chave:
