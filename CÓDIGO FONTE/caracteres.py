@@ -31,7 +31,8 @@ letras_acentuadas = [
 ]
 
 # Símbolos extras
-simbolos_extra = ['€','£','¥','¢','§','©️','®️','™️','°','±','×','÷','µ','¶']
+simbolos_extra = ['€','£','¥','¢','§','©','®','™','°','±','×','÷','µ','¶']
+
 
 # Junta todas as listas numa única lista chamada BASE_CARACTERES
 BASE_CARACTERES = (
