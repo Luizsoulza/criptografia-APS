@@ -11,48 +11,39 @@ app.geometry('500x600')
 # Funções de ação
 def executar_acao():
     opcao = campo_opcao.get()
-    if opcao == '1':
-        texto = campo_texto.get()
-        chave = campo_chave.get()
+    texto = campo_texto.get()
+    chave = campo_chave.get()
 
+    resultado.delete("1.0", "end")
+
+    if opcao == '1':
         if len(texto) > 1000:
-            resultado.delete("1.0", "end")
             resultado.insert("end", "Erro: texto muito longo.")
             return
         if not chave:
-            resultado.delete("1.0", "end")
             resultado.insert("end", "Erro: chave vazia.")
             return
 
         try:
             criptografado = criptografar(texto, chave)
-            resultado.delete("1.0", "end")
-            resultado.insert("end", "Texto criptografado:\n" + criptografado)
+            resultado.insert("end", criptografado)
         except Exception as e:
-            resultado.delete("1.0", "end")
             resultado.insert("end", f"Erro na criptografia: {e}")
 
     elif opcao == '2':
-        texto = campo_texto.get()
-        chave = campo_chave.get()
-
         if not chave:
-            resultado.delete("1.0", "end")
             resultado.insert("end", "Erro: chave vazia.")
             return
 
         try:
             descriptografado = descriptografar(texto, chave)
-            resultado.delete("1.0", "end")
-            resultado.insert("end", "Texto descriptografado:\n" + descriptografado)
+            resultado.insert("end", descriptografado)
         except Exception as e:
-            resultado.delete("1.0", "end")
             resultado.insert("end", f"Erro na descriptografia: {e}")
 
     elif opcao == '3':
         app.destroy()
     else:
-        resultado.delete("1.0", "end")
         resultado.insert("end", "Opção inválida. Escolha 1, 2 ou 3.")
 
 def limpar_campos():
@@ -60,6 +51,11 @@ def limpar_campos():
     campo_texto.delete(0, "end")
     campo_chave.delete(0, "end")
     resultado.delete("1.0", "end")
+
+def copiar_resultado():
+    conteudo = resultado.get("1.0", "end").strip()
+    app.clipboard_clear()
+    app.clipboard_append(conteudo)
 
 # Interface
 label_menu = ctk.CTkLabel(app, text='MENU PRINCIPAL', font=('Arial', 18))
@@ -85,5 +81,8 @@ botao_limpar.pack(pady=5)
 
 resultado = ctk.CTkTextbox(app, width=400, height=200)
 resultado.pack(pady=10)
+
+botao_copiar = ctk.CTkButton(app, text='Copiar Resultado', command=copiar_resultado)
+botao_copiar.pack(pady=5)
 
 app.mainloop()
